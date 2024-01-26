@@ -1,4 +1,4 @@
-# ByoxApi
+# Build your own X API
 
 To start your Phoenix server:
 
