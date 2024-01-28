@@ -2,10 +2,13 @@ defmodule ByoxApi.Languages.Language do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias ByoxApi.Tutorials.Tutorial
+
   @required_params [:name]
 
   schema "languages" do
     field :name, :string
+    has_many :tutorials, Tutorial
   end
 
   def changeset(topic \\ %__MODULE__{}, params) do
