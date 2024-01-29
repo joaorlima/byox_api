@@ -9,7 +9,7 @@ defmodule ByoxApi.Topics.Get do
     case Repo.one(
       from(t in Topic, where: ilike(t.title, ^"%#{title}%"))
     ) do
-      [] -> IO.puts("NOTHING")
+      nil -> {:error, :not_found}
       t -> {:ok, %Topic{id: t.id, title: t.title} |> Repo.preload(:tutorials)}
     end
   end

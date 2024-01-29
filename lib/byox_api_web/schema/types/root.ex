@@ -3,6 +3,7 @@ defmodule ByoxApiWeb.Schema.Types.Root do
 
   alias ByoxApiWeb.Resolvers.Language, as: LanguageResolver
   alias ByoxApiWeb.Resolvers.Topic, as: TopicResolver
+  alias Crudry.Middlewares.TranslateErrors, as: TE
 
   import_types ByoxApiWeb.Schema.Types.Language
   import_types ByoxApiWeb.Schema.Types.Tutorial
@@ -13,12 +14,14 @@ defmodule ByoxApiWeb.Schema.Types.Root do
       arg :name, non_null(:string)
 
       resolve &LanguageResolver.get/2
+      middleware TE
     end
 
     field :topic, type: :topic do
       arg :title, non_null(:string)
 
       resolve &TopicResolver.get/2
+      middleware TE
     end
 
   end
