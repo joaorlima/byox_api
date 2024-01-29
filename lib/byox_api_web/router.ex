@@ -5,8 +5,11 @@ defmodule ByoxApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ByoxApiWeb do
+  scope "/api" do
     pipe_through :api
+
+    forward "/graphql", Absinthe.Plug, schema: ByoxApiWeb.Schema
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: ByoxApiWeb.Schema
   end
 
   # Enable LiveDashboard in development
