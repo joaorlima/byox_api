@@ -45,6 +45,9 @@ defmodule ByoxApi.MixProject do
       {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
       {:crudry, "~> 2.4.0"},
+      {:floki, "~> 0.35.3"},
+      {:earmark, "~> 1.4"},
+      {:req, "~> 0.4.8"},
     ]
   end
 
