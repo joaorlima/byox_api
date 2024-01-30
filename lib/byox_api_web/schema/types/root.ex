@@ -17,7 +17,7 @@ defmodule ByoxApiWeb.Schema.Types.Root do
       middleware TE
     end
 
-    field :topic, type: :topic do
+    field :topic, type: list_of(:topic) do
       arg :title, non_null(:string)
 
       resolve &TopicResolver.get/2
