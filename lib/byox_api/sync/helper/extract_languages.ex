@@ -6,7 +6,6 @@ defmodule ByoxApi.Sync.Helper.ExtractLanguages do
 
     tutorial_languages
     |> filter_unique_languages()
-    |> IO.inspect()
     |> Enum.each(&create_language/1)
   end
 
@@ -36,9 +35,13 @@ defmodule ByoxApi.Sync.Helper.ExtractLanguages do
       end)
     |> List.flatten()
     |> Enum.uniq()
-    |> IO.inspect()
   end
 
-  defp create_language(languages), do: ByoxApi.create_language(languages)
+  defp create_language(languages) do
+    case ByoxApi.create_language(languages) do
+      {:error, _changeset} -> nil
+      {:ok, language} -> %{name: language.name, id: language.id}
+    end
+  end
 
 end

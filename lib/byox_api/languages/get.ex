@@ -3,15 +3,15 @@ defmodule ByoxApi.Languages.Get do
   alias ByoxApi.Repo
   alias ByoxApi.Languages.Language
 
-  import Ecto.Query
-
   def call(name) do
-    case Repo.one(
-      from(l in Language, where: ilike(l.name, ^"%#{name}%"))
-    ) do
+    case Repo.get_by!(Language, name: name) do
       nil -> {:error, :not_found}
-      l -> {:ok, %Language{id: l.id, name: l.name} |> Repo.preload(:tutorials)}
+      language -> language |> create_language_struct()
     end
+  end
+
+  defp create_language_struct(language) do
+    %Language{id: language.id, name: language.name}
   end
 
 end

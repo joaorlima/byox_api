@@ -14,16 +14,22 @@ defmodule ByoxApi.Topics.Get do
       [] -> {:error, :not_found}
       topics ->
         topics = topics
-         |> create_topics_struct()
+         |> Enum.map(&create_topic_struct/1)
          |> Repo.preload(:tutorials)
 
       {:ok, topics}
     end
   end
 
-  defp create_topics_struct(topics) do
-    topics
-    |> Enum.map(fn topic -> %Topic{id: topic.id, title: topic.title} end)
+  def find_topic_by_title(title) do
+    case Repo.get_by(Topic, title: title) do
+      nil -> nil
+      topic -> topic |> create_topic_struct()
+    end
+  end
+
+  defp create_topic_struct(topic) do
+    %Topic{id: topic.id, title: topic.title}
   end
 
 end

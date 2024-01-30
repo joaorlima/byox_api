@@ -2,6 +2,7 @@ defmodule ByoxApi.Sync do
 
   alias ByoxApi.Sync.Helper.ExtractOverallData
   alias ByoxApi.Sync.Helper.ExtractTopics
+  alias ByoxApi.Sync.Helper.ExtractTutorials
   alias ByoxApi.Sync.Helper.ExtractLanguages
 
   def sync do
@@ -36,9 +37,13 @@ defmodule ByoxApi.Sync do
     tutorials_data
     |> Enum.map(&ExtractTopics.map_and_create/1)
 
-    # create language OK
+    # create language
     tutorials_data
     |> ExtractLanguages.map_and_create()
+
+    # create tutorials
+    tutorials_data
+    |> ExtractTutorials.map_and_create()
   end
 
 end
