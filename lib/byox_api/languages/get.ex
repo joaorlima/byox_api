@@ -6,12 +6,8 @@ defmodule ByoxApi.Languages.Get do
   def call(name) do
     case Repo.get_by!(Language, name: name) do
       nil -> {:error, :not_found}
-      language -> language |> create_language_struct()
+      language -> {:ok, Repo.preload(language, :tutorials)}
     end
-  end
-
-  defp create_language_struct(language) do
-    %Language{id: language.id, name: language.name}
   end
 
 end
