@@ -6,5 +6,4 @@ defmodule ByoxApiWeb.Schema.Types.Language do
     field :name, non_null(:string)
     field :tutorials, list_of(:tutorial)
   end
-
 end

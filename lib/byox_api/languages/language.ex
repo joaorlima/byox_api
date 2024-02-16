@@ -18,5 +18,4 @@ defmodule ByoxApi.Languages.Language do
     |> validate_length(:name, min: 1)
     |> unique_constraint(:name)
   end
-
 end

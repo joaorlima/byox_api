@@ -6,5 +6,4 @@ defmodule ByoxApiWeb.Schema.Types.Topic do
     field :title, non_null(:string)
     field :tutorials, list_of(:tutorial)
   end
-
 end

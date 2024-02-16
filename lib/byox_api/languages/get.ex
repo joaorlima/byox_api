@@ -1,5 +1,4 @@
 defmodule ByoxApi.Languages.Get do
-
   alias ByoxApi.Repo
   alias ByoxApi.Languages.Language
 
@@ -9,5 +8,4 @@ defmodule ByoxApi.Languages.Get do
       language -> {:ok, Repo.preload(language, :tutorials)}
     end
   end
-
 end

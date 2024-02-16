@@ -1,5 +1,4 @@
 defmodule ByoxApi.Topics.Create do
-
   alias ByoxApi.Repo
   alias ByoxApi.Topics.Topic
 
@@ -8,5 +7,4 @@ defmodule ByoxApi.Topics.Create do
     |> Topic.changeset()
     |> Repo.insert()
   end
-
 end

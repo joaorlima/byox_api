@@ -1,5 +1,4 @@
 defmodule ByoxApi.Sync.Helper.ExtractTopics do
-
   def map_and_create(tutorials_data) do
     tutorials_data
     |> map()
@@ -14,5 +13,4 @@ defmodule ByoxApi.Sync.Helper.ExtractTopics do
   defp create_topic(topic_data) do
     ByoxApi.create_topic(topic_data)
   end
-
 end

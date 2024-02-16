@@ -47,7 +47,7 @@ defmodule ByoxApi.MixProject do
       {:crudry, "~> 2.4.0"},
       {:floki, "~> 0.35.3"},
       {:earmark, "~> 1.4"},
-      {:req, "~> 0.4.8"},
+      {:req, "~> 0.4.8"}
     ]
   end
 

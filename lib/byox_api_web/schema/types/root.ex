@@ -23,7 +23,5 @@ defmodule ByoxApiWeb.Schema.Types.Root do
       resolve &TopicResolver.get/2
       middleware TE
     end
-
   end
-
 end

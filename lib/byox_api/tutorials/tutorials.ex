@@ -24,5 +24,4 @@ defmodule ByoxApi.Tutorials.Tutorial do
     |> unique_constraint(:topic_id)
     |> foreign_key_constraint(:language_id)
   end
-
 end

@@ -1,8 +1,8 @@
 defmodule ByoxApi.Sync.Helper.ExtractLanguages do
-
   def map_and_create(tutorials_data) do
-    tutorial_languages = tutorials_data
-    |> Enum.map(&map_languages/1)
+    tutorial_languages =
+      tutorials_data
+      |> Enum.map(&map_languages/1)
 
     tutorial_languages
     |> filter_unique_languages()
@@ -31,8 +31,8 @@ defmodule ByoxApi.Sync.Helper.ExtractLanguages do
   defp filter_unique_languages(tutorial_languages) do
     tutorial_languages
     |> Enum.flat_map(fn inner_list ->
-        Enum.uniq_by(inner_list, fn %{name: name} -> name end)
-      end)
+      Enum.uniq_by(inner_list, fn %{name: name} -> name end)
+    end)
     |> List.flatten()
     |> Enum.uniq()
   end
@@ -43,5 +43,4 @@ defmodule ByoxApi.Sync.Helper.ExtractLanguages do
       {:ok, language} -> %{name: language.name, id: language.id}
     end
   end
-
 end

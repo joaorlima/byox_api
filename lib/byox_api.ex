@@ -1,5 +1,4 @@
 defmodule ByoxApi do
-
   alias ByoxApi.Languages
   alias ByoxApi.Tutorials
   alias ByoxApi.Topics
@@ -12,5 +11,4 @@ defmodule ByoxApi do
   defdelegate get_topic_by_title(title), to: Topics.Get, as: :call
 
   defdelegate find_topic_by_title(title), to: Topics.Get, as: :find_topic_by_title
-
 end

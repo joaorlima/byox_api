@@ -1,5 +1,4 @@
 defmodule ByoxApi.Tutorials.Create do
-
   alias ByoxApi.Repo
   alias ByoxApi.Tutorials.Tutorial
 
@@ -8,5 +7,4 @@ defmodule ByoxApi.Tutorials.Create do
     |> Tutorial.changeset()
     |> Repo.insert()
   end
-
 end

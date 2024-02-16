@@ -6,5 +6,4 @@ defmodule ByoxApiWeb.Schema do
   query do
     import_fields :root_query
   end
-
 end

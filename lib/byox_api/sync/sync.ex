@@ -1,12 +1,14 @@
 defmodule ByoxApi.Sync do
-
   alias ByoxApi.Sync.Helper.ExtractOverallData
   alias ByoxApi.Sync.Helper.ExtractTopics
   alias ByoxApi.Sync.Helper.ExtractTutorials
   alias ByoxApi.Sync.Helper.ExtractLanguages
 
   def sync do
-    response = Req.get!("https://raw.githubusercontent.com/codecrafters-io/build-your-own-x/master/README.md")
+    response =
+      Req.get!(
+        "https://raw.githubusercontent.com/codecrafters-io/build-your-own-x/master/README.md"
+      )
 
     html = Earmark.as_html!(response.body)
 
@@ -14,10 +16,11 @@ defmodule ByoxApi.Sync do
 
     ul_tags = Floki.find(document, "ul")
 
-    data = for ul_tag <- ul_tags do
-      child_nodes = Floki.children(ul_tag)
-      Enum.map(child_nodes, &Floki.raw_html/1)
-    end
+    data =
+      for ul_tag <- ul_tags do
+        child_nodes = Floki.children(ul_tag)
+        Enum.map(child_nodes, &Floki.raw_html/1)
+      end
 
     [topics | tutorial_lists] = data
 
@@ -29,7 +32,9 @@ defmodule ByoxApi.Sync do
 
     tutorials_data =
       result_map
-      |> Enum.map(fn {category_tag, html_tags} -> ExtractOverallData.extract(category_tag, html_tags) end)
+      |> Enum.map(fn {category_tag, html_tags} ->
+        ExtractOverallData.extract(category_tag, html_tags)
+      end)
       |> Map.new()
       |> Map.to_list()
 
@@ -45,5 +50,4 @@ defmodule ByoxApi.Sync do
     tutorials_data
     |> ExtractTutorials.map_and_create()
   end
-
 end

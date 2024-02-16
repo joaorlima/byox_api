@@ -1,23 +1,23 @@
 defmodule ByoxApi.Topics.Get do
-
   alias ByoxApi.Repo
   alias ByoxApi.Topics.Topic
 
   import Ecto.Query
 
   def call(title) do
-    topics = Repo.all(
-      from(t in Topic, where: ilike(t.title, ^"%#{title}%"))
-    )
+    topics = Repo.all(from(t in Topic, where: ilike(t.title, ^"%#{title}%")))
 
     case topics do
-      [] -> {:error, :not_found}
-      topics ->
-        topics = topics
-         |> Enum.map(&create_topic_struct/1)
-         |> Repo.preload(:tutorials)
+      [] ->
+        {:error, :not_found}
 
-      {:ok, topics}
+      topics ->
+        topics =
+          topics
+          |> Enum.map(&create_topic_struct/1)
+          |> Repo.preload(:tutorials)
+
+        {:ok, topics}
     end
   end
 
@@ -31,5 +31,4 @@ defmodule ByoxApi.Topics.Get do
   defp create_topic_struct(topic) do
     %Topic{id: topic.id, title: topic.title}
   end
-
 end

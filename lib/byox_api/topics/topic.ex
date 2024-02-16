@@ -18,5 +18,4 @@ defmodule ByoxApi.Topics.Topic do
     |> validate_length(:title, min: 2)
     |> unique_constraint(:title)
   end
-
 end

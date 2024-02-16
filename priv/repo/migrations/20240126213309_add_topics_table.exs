@@ -8,5 +8,4 @@ defmodule ByoxApi.Repo.Migrations.AddTopicsTable do
 
     create unique_index(:topics, [:title])
   end
-
 end

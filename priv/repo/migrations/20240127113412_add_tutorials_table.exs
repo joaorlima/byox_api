@@ -13,5 +13,4 @@ defmodule ByoxApi.Repo.Migrations.AddTutorialsTable do
     create index(:tutorials, [:topic_id])
     create index(:tutorials, [:language_id])
   end
-
 end

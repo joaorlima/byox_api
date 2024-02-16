@@ -8,5 +8,4 @@ defmodule ByoxApiWeb.Schema.Types.Tutorial do
     field :topic_id, non_null(:id)
     field :language_id, non_null(:id)
   end
-
 end

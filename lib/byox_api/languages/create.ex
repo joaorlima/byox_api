@@ -1,5 +1,4 @@
 defmodule ByoxApi.Languages.Create do
-
   alias ByoxApi.Repo
   alias ByoxApi.Languages.Language
 
@@ -8,5 +7,4 @@ defmodule ByoxApi.Languages.Create do
     |> Language.changeset()
     |> Repo.insert()
   end
-
 end

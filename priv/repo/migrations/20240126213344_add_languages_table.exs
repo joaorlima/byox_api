@@ -8,5 +8,4 @@ defmodule ByoxApi.Repo.Migrations.AddLanguagesTable do
 
     create unique_index(:languages, [:name])
   end
-
 end
