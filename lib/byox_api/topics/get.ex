@@ -15,7 +15,7 @@ defmodule ByoxApi.Topics.Get do
         topics =
           topics
           |> Enum.map(&create_topic_struct/1)
-          |> Repo.preload(:tutorials)
+          |> Repo.preload(tutorials: [:language])
 
         {:ok, topics}
     end
