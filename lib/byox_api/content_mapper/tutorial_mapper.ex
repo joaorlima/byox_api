@@ -1,4 +1,4 @@
-defmodule ByoxApi.Sync.Helper.ExtractTutorials do
+defmodule ByoxApi.ContentMapper.TutorialMapper do
   def map_and_create(tutorials_data) do
     data_split_by_languages =
       tutorials_data
@@ -50,7 +50,7 @@ defmodule ByoxApi.Sync.Helper.ExtractTutorials do
     mapped_data
     |> Map.get(:data)
     |> Enum.map(fn tutorial_data ->
-      language = tutorial_data.language |> String.trim() |> ByoxApi.get_language_by_name()
+      {:ok, language} = tutorial_data.language |> String.trim() |> ByoxApi.get_language_by_name()
 
       %{
         title: tutorial_data.title,

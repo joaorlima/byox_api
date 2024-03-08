@@ -1,4 +1,4 @@
-defmodule ByoxApi.Sync.Helper.ExtractOverallData do
+defmodule ByoxApi.ContentMapper.DataMapper do
   def extract(category_tag, html_tags) do
     category = extract_category_text(category_tag)
     tutorials = Enum.map(html_tags, &parse_tag/1)

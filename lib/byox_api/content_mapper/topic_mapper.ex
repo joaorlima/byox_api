@@ -1,4 +1,4 @@
-defmodule ByoxApi.Sync.Helper.ExtractTopics do
+defmodule ByoxApi.ContentMapper.TopicMapper do
   def map_and_create(tutorials_data) do
     tutorials_data
     |> map()

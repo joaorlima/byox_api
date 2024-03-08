@@ -1,11 +1,49 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     ByoxApi.Repo.insert!(%ByoxApi.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias ByoxApi.ContentMapper.DataMapper
+alias ByoxApi.ContentMapper.TopicMapper
+alias ByoxApi.ContentMapper.TutorialMapper
+alias ByoxApi.ContentMapper.LanguageMapper
+
+response =
+  Req.get!(
+    "https://raw.githubusercontent.com/codecrafters-io/build-your-own-x/master/README.md"
+  )
+
+html = Earmark.as_html!(response.body)
+
+{:ok, document} = Floki.parse_document(html)
+
+ul_tags = Floki.find(document, "ul")
+
+data =
+  for ul_tag <- ul_tags do
+    child_nodes = Floki.children(ul_tag)
+    Enum.map(child_nodes, &Floki.raw_html/1)
+  end
+
+[topics | tutorial_lists] = data
+
+tutorial_lists |> Enum.drop(1)
+
+mapped_list = Enum.zip(topics, tutorial_lists)
+
+result_map = Enum.into(mapped_list, %{})
+
+tutorials_data =
+  result_map
+  |> Enum.map(fn {category_tag, html_tags} ->
+    DataMapper.extract(category_tag, html_tags)
+  end)
+  |> Map.new()
+  |> Map.to_list()
+
+# create topics
+tutorials_data
+|> Enum.map(&TopicMapper.map_and_create/1)
+
+# create language
+tutorials_data
+|> LanguageMapper.map_and_create()
+
+# create tutorials
+tutorials_data
+|> TutorialMapper.map_and_create()

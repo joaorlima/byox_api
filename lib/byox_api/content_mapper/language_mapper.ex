@@ -1,4 +1,4 @@
-defmodule ByoxApi.Sync.Helper.ExtractLanguages do
+defmodule ByoxApi.ContentMapper.LanguageMapper do
   def map_and_create(tutorials_data) do
     tutorial_languages =
       tutorials_data
