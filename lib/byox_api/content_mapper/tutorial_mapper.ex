@@ -1,4 +1,7 @@
 defmodule ByoxApi.ContentMapper.TutorialMapper do
+
+  require Logger
+
   def map_and_create(tutorials_data) do
     data_split_by_languages =
       tutorials_data
@@ -50,15 +53,19 @@ defmodule ByoxApi.ContentMapper.TutorialMapper do
     mapped_data
     |> Map.get(:data)
     |> Enum.map(fn tutorial_data ->
-      {:ok, language} = tutorial_data.language |> String.trim() |> ByoxApi.get_language_by_name()
-
-      %{
-        title: tutorial_data.title,
-        url: tutorial_data.url,
-        topic_id: topic.id,
-        language_id: language.id
-      }
-      |> ByoxApi.create_tutorial()
+      case tutorial_data.language |> String.trim() |> ByoxApi.get_language_by_name() do
+        {:ok, language} ->
+          %{
+            title: tutorial_data.title,
+            url: tutorial_data.url,
+            topic_id: topic.id,
+            language_id: language.id
+          } |> ByoxApi.create_tutorial()
+        {:error, :not_found} ->
+          Logger.info("Error getting language")
+          nil
+      end
     end)
   end
+
 end

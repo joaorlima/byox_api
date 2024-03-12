@@ -2,7 +2,7 @@ defmodule ByoxApi.Languages.Create do
   alias ByoxApi.Repo
   alias ByoxApi.Languages.Language
 
-  def call(params) do
+  def create(params) do
     params
     |> Language.changeset()
     |> Repo.insert()

@@ -50,6 +50,8 @@ defmodule ByoxApi.MixProject do
       {:req, "~> 0.4.8"},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
+      {:antl_utils_ecto, "~> 2.7"},
+      {:ex_machina, "~> 2.7.0", only: :test},
     ]
   end
 
