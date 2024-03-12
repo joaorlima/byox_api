@@ -29,7 +29,7 @@ defmodule ByoxApiWeb.LanguageTest do
       assert expected_response == response
     end
 
-    test "given non-existing language. should not return the language", %{conn: conn} do
+    test "given non-existing language. should return not found message", %{conn: conn} do
       {:ok, _language} = create_language("Elixir")
 
       query = """
@@ -40,10 +40,23 @@ defmodule ByoxApiWeb.LanguageTest do
       }
       """
 
-      assert_error_sent 404, fn ->
+      response =
         conn
         |> post("/api/graphql", %{query: query})
-      end
+        |> json_response(200)
+
+      expected_response = %{
+        "data" => %{"language" => nil},
+        "errors" => [
+          %{
+            "locations" => [%{"column" => 3, "line" => 2}],
+            "message" => "not_found",
+            "path" => ["language"]
+          }
+        ]
+      }
+
+      assert expected_response == response
     end
   end
 
