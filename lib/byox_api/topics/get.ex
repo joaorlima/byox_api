@@ -4,7 +4,7 @@ defmodule ByoxApi.Topics.Get do
 
   import Ecto.Query
 
-  def get_by_title(title) do
+  def find_similar_by_title(title) do
     topics = Repo.all(from(t in Topic, where: ilike(t.title, ^"%#{title}%")))
 
     case topics do

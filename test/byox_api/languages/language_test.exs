@@ -1,5 +1,5 @@
 defmodule ByoxApi.Languages.LanguageTest do
-  use ByoxApiWeb.ConnCase, async: true
+  use ExUnit.Case
 
   alias ByoxApi.Languages.Language
 

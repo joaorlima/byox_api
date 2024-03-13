@@ -11,7 +11,7 @@ defmodule ByoxApi do
   defdelegate get_language_by_name(name), to: Languages.Get, as: :get_by_name
 
   @spec get_topics_by_title(title :: String) :: {:ok, [Topic.t()]} | {:error, :not_found}
-  defdelegate get_topics_by_title(title), to: Topics.Get, as: :get_by_title
+  defdelegate get_topics_by_title(title), to: Topics.Get, as: :find_similar_by_title
 
   @spec find_topic_by_title(title :: String) :: Topic.t() | nil
   defdelegate find_topic_by_title(title), to: Topics.Get, as: :find_by_title

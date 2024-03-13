@@ -5,7 +5,7 @@ defmodule ByoxApi.Tutorials.Tutorial do
   alias ByoxApi.Languages.Language
   alias ByoxApi.Topics.Topic
 
-  @required_params [:title, :url, :topic_id, :language_id]
+  @required_params [:title, :url, :language_id]
 
   schema "tutorials" do
     field :title, :string

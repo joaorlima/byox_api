@@ -2,7 +2,7 @@ defmodule ByoxApi.Languages.GetTest do
   use ByoxApi.DataCase
 
   alias ByoxApi.Languages.Get
-  alias ByoxApi.Factories.LanguageFactory, as: Factory
+  alias ByoxApi.Factories.SchemaFactory, as: Factory
 
   setup do
     Ecto.Adapters.SQL.Sandbox.checkout(ByoxApi.Repo)

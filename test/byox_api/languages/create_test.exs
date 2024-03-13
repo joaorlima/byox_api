@@ -3,7 +3,7 @@ defmodule ByoxApi.Languages.CreateTest do
 
   alias ByoxApi.Languages.Language
   alias ByoxApi.Languages.Create
-  alias ByoxApi.Factories.LanguageFactory, as: Factory
+  alias ByoxApi.Factories.SchemaFactory, as: Factory
 
   setup do
     Ecto.Adapters.SQL.Sandbox.checkout(ByoxApi.Repo)
