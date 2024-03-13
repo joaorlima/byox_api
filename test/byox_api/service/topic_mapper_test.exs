@@ -21,7 +21,8 @@ defmodule ByoxApi.Service.TopicMapperTest do
 
   describe "extract/1" do
     test "creates topics given valid content" do
-      TopicMapper.extract(@mocked_data_with_all_valid_topics)
+      @mocked_data_with_all_valid_topics
+      |> extract_topics()
 
       topics = get_all_topics()
 
@@ -37,7 +38,7 @@ defmodule ByoxApi.Service.TopicMapperTest do
     end
 
     test "creates a topic for valid contents and log errors for invalid content" do
-      captured_log = capture_log(fn -> :ok = TopicMapper.extract(@mocked_data_with_a_invalid_topic) end)
+      captured_log = capture_log(fn -> extract_topics(@mocked_data_with_a_invalid_topic) end)
 
       topics = get_all_topics()
       game_topic_from_db = ByoxApi.find_topic_by_title("Game")
@@ -52,6 +53,11 @@ defmodule ByoxApi.Service.TopicMapperTest do
 
       assert captured_log =~ "Failed to extract topic from <li>\n[Game(#mocked-game)  </li>"
     end
+  end
+
+  defp extract_topics(mocked_data) do
+    mocked_data
+    |> Enum.map(fn {topic_data, _} -> TopicMapper.extract(topic_data) end)
   end
 
   defp get_all_topics, do: Repo.all(Topic)

@@ -1,7 +1,6 @@
 defmodule ByoxApi.Service.Mapper do
 
-  alias ByoxApi.Service.TopicMapper
-  alias ByoxApi.Service.TutorialMapper
+  alias ByoxApi.Service.DataMapper
 
   require Logger
 
@@ -21,20 +20,13 @@ defmodule ByoxApi.Service.Mapper do
       end
 
     [topics | tutorial_lists] = data
-
-    # tutorial_lists |> Enum.drop(1)
-
     mapped_list = Enum.zip(topics, tutorial_lists)
-
     result_map = Enum.into(mapped_list, %{})
 
     Logger.info("Extracting data...")
 
     result_map
-    |> TopicMapper.extract()
-
-    result_map
-    |> TutorialMapper.extract()
+    |> DataMapper.extract()
 
     {:ok}
   end

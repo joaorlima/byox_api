@@ -2,14 +2,13 @@ defmodule ByoxApi.Service.TopicMapper do
 
   require Logger
 
-  def extract(data) do
-    data
-    |> Enum.map(&extract_topic_title_from_tag/1)
-    |> Enum.each(&insert_topic/1)
+  def extract(topic_data) do
+    topic_data
+    |> extract_topic_title_from_tag_2()
+    |> insert_topic()
   end
 
-  # rename tag to data
-  def extract_topic_title_from_tag({topic_data, _tutorial_data}) do
+  defp extract_topic_title_from_tag_2(topic_data) do
     case Regex.run(
       ~r{<a href="#[^>]+">(?<topic>[^<]+)</a>}, topic_data,
       capture: [:topic]
@@ -22,14 +21,14 @@ defmodule ByoxApi.Service.TopicMapper do
     end
   end
 
+  defp insert_topic({:error, _}), do: :error
+
   defp insert_topic({:ok, topic_title}) do
     %{
       title: topic_title
     }
     |> ByoxApi.create_topic()
   end
-
-  defp insert_topic({:error, _}), do: :error
 
   defp log_error_message(topic_tag) do
     """
