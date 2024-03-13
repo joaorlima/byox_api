@@ -1,9 +1,9 @@
 defmodule ByoxApi.Service.Mapper do
 
-  alias ByoxApi.ContentMapper.DataMapper
-  alias ByoxApi.ContentMapper.LanguageMapper
-  alias ByoxApi.ContentMapper.TopicMapper
-  alias ByoxApi.ContentMapper.TutorialMapper
+  alias ByoxApi.Service.TopicMapper
+  alias ByoxApi.Service.TutorialMapper
+
+  require Logger
 
   def sync(url) do
     {:ok, response} = Tesla.get(url)
@@ -28,25 +28,13 @@ defmodule ByoxApi.Service.Mapper do
 
     result_map = Enum.into(mapped_list, %{})
 
-    tutorials_data =
-      result_map
-      |> Enum.map(fn {category_tag, html_tags} ->
-        DataMapper.extract(category_tag, html_tags)
-      end)
-      |> Map.new()
-      |> Map.to_list()
+    Logger.info("Extracting data...")
 
-    # create topics
-    tutorials_data
-    |> Enum.map(&TopicMapper.map_and_create/1)
+    result_map
+    |> TopicMapper.extract()
 
-    # create language
-    tutorials_data
-    |> LanguageMapper.map_and_create()
-
-    # create tutorials
-    tutorials_data
-    |> TutorialMapper.map_and_create()
+    result_map
+    |> TutorialMapper.extract()
 
     {:ok}
   end
