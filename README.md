@@ -24,7 +24,17 @@ query {
 
 And both would give you the same output.
 
-![image](https://github.com/joaorlima/byox_api/assets/38928059/58753738-f7c3-4325-aad7-5f7921f00b80)
+```json
+{
+    "data": {
+        "topic": [
+            {
+                "title": "3D Renderer"
+            }
+        ]
+    }
+}
+```
 
 You can also search for tutorials within a given topic, for example:
 
@@ -35,7 +45,9 @@ query {
     tutorials {
       title
       url
-      languageId
+      language {
+        name
+      }
     }
   }
 }
@@ -43,7 +55,33 @@ query {
 
 would give you
 
-![image](https://github.com/joaorlima/byox_api/assets/38928059/fa9894e4-b894-41b5-98d8-70ea7b92955e)
+```json
+{
+    "data": {
+        "topic": [
+            {
+                "title": "Voxel Engine",
+                "tutorials": [
+                    {
+                        "language": {
+                            "name": "C++"
+                        },
+                        "title": "Let’s Make a Voxel Engine",
+                        "url": "https://sites.google.com/site/letsmakeavoxelengine/home"
+                    },
+                    {
+                        "language": {
+                            "name": "Java"
+                        },
+                        "title": "Java Voxel Engine Tutorial",
+                        "url": "https://www.youtube.com/watch?v=QZ4Vk2PkPZk&amp;list=PL80Zqpd23vJfyWQi-8FKDbeO_ZQamLKJL"
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
 
 You can also search for tutorials for a given language, for example
 
@@ -58,14 +96,43 @@ query {
 }
 ```
 
-![image](https://github.com/joaorlima/byox_api/assets/38928059/c0da8a9e-2d6b-4381-8a09-310a625f6a91)
+```json
+{
+    "data": {
+        "language": {
+            "tutorials": [
+                {
+                    "title": "Writing a webserver in pure PHP",
+                    "url": "http://station.clancats.com/writing-a-webserver-in-pure-php/"
+                },
+                {
+                    "title": "Write your own MVC from scratch in PHP",
+                    "url": "https://chaitya62.github.io/2018/04/29/Writing-your-own-MVC-from-Scratch-in-PHP.html"
+                },
+                {
+                    "title": "Make your own blog",
+                    "url": "https://ilovephp.jondh.me.uk/en/tutorial/make-your-own-blog"
+                },
+                {
+                    "title": "Modern PHP Without a Framework",
+                    "url": "https://kevinsmith.io/modern-php-without-a-framework"
+                },
+                {
+                    "title": "Code a Web Search Engine in PHP",
+                    "url": "https://boyter.org/2013/01/code-for-a-search-engine-in-php-part-1/"
+                }
+            ]
+        }
+    }
+}
+```
 
 
 ## Sync and start Phoenix server
 
 ### Sync
 * To sync the contents of the repository, run `mix setup` to install and setup the dependencies
-* Run `ByoxApi.Sync.sync` inside IEx with `iex -S mix`
+* Seed the database by running `mix run priv/repo/seeds.exs`
 
 ### Server
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
