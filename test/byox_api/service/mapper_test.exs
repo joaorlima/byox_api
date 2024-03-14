@@ -1,4 +1,4 @@
-defmodule ByoxApi.Service.ContentMapperTest do
+defmodule ByoxApi.Service.MapperTest do
   use ByoxApiWeb.ConnCase, async: true
 
   alias ByoxApi.Repo
@@ -19,8 +19,6 @@ defmodule ByoxApi.Service.ContentMapperTest do
   end
 
   test "parses response body and create entities" do
-    {:ok, _response} = Tesla.get(@url)
-
     captured_log = capture_log(fn -> Mapper.sync(@url) end)
 
     topics = get_all_topics()
