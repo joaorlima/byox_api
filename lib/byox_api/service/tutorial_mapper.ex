@@ -18,9 +18,13 @@ defmodule ByoxApi.Service.TutorialMapper do
       ) do
       [url, language, title] ->
         {:ok, %{topic_id: topic_id, tutorial_data: [title: title, url: url, language: language]}}
-      _ -> {:error, nil} # TODO: match remaining errors
+      _ ->
+        log_error_message(tutorial_data)
+        {:error, nil}
     end
   end
+
+  defp insert_tutorial({:error, _}), do: :error
 
   defp insert_tutorial({:ok, %{topic_id: topic_id, tutorial_data: [title: title, url: url, language: language]}}) do
     {:ok, language} = find_or_create_language(language) # TODO: extract to language mapper
@@ -38,6 +42,14 @@ defmodule ByoxApi.Service.TutorialMapper do
       {:error, :not_found} -> %{name: language_name} |> ByoxApi.create_language()
       {:ok, language} -> {:ok, language}
     end
+  end
+
+  defp log_error_message(tutorial_data) do
+    """
+    Failed to extract tutorial contents from #{tutorial_data}.
+    Check for missing tags or closing underscores.
+    """
+    |> Logger.error()
   end
 
 end

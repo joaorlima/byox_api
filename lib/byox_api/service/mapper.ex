@@ -1,6 +1,6 @@
 defmodule ByoxApi.Service.Mapper do
 
-  alias ByoxApi.Service.DataMapper
+  alias ByoxApi.Service.ContentMapper
 
   require Logger
 
@@ -26,7 +26,7 @@ defmodule ByoxApi.Service.Mapper do
     Logger.info("Extracting data...")
 
     result_map
-    |> DataMapper.extract()
+    |> ContentMapper.extract()
 
     {:ok}
   end
