@@ -1,14 +1,13 @@
-defmodule ByoxApi.Service.TopicMapper do
+defmodule ByoxApi.Topics.Mapper do
 
   require Logger
 
-  def extract(topic_data) do
+  def map(topic_data) do
     topic_data
-    |> extract_topic_title_from_tag_2()
-    |> insert_topic()
+    |> extract_topic_info_from_tag()
   end
 
-  defp extract_topic_title_from_tag_2(topic_data) do
+  defp extract_topic_info_from_tag(topic_data) do
     case Regex.run(
       ~r{<a href="#[^>]+">(?<topic>[^<]+)</a>}, topic_data,
       capture: [:topic]
@@ -19,15 +18,6 @@ defmodule ByoxApi.Service.TopicMapper do
         log_error_message(topic_data)
         {:error, :invalid_topic_data}
     end
-  end
-
-  defp insert_topic({:error, _}), do: :error
-
-  defp insert_topic({:ok, topic_title}) do
-    %{
-      title: topic_title
-    }
-    |> ByoxApi.create_topic()
   end
 
   defp log_error_message(topic_tag) do

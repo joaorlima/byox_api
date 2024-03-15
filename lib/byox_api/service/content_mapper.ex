@@ -1,7 +1,9 @@
 defmodule ByoxApi.Service.ContentMapper do
 
-  alias ByoxApi.Service.TutorialMapper
-  alias ByoxApi.Service.TopicMapper
+  alias ByoxApi.Tutorials.Mapper, as: TutorialMapper
+  alias ByoxApi.Tutorials.Factory, as: TutorialFactory
+  alias ByoxApi.Topics.Mapper, as: TopicMapper
+  alias ByoxApi.Topics.Factory, as: TopicFactory
 
   def extract(data) do
     data
@@ -10,11 +12,12 @@ defmodule ByoxApi.Service.ContentMapper do
 
   defp extract_all_data({topic_data, tutorials_data}) do
     topic =
-      topic_data
-      |> TopicMapper.extract()
+      TopicMapper.map(topic_data)
+      |> TopicFactory.create()
 
     tutorials_data
-    |> TutorialMapper.extract(topic)
+    |> TutorialMapper.map()
+    |> Enum.map(&TutorialFactory.create(&1, topic))
   end
 
 end
