@@ -13,29 +13,40 @@ defmodule ByoxApi.DataExtraction.HTMLDataExtractorTest do
   @url "https://raw.mockedcontent.com/mocked.md"
 
   setup do
-    mock(fn %{method: :get, url: @url} ->
-      %Tesla.Env{status: 200, body: mocked_body()}
+    mock(fn env ->
+      case env.url do
+        @url -> %Tesla.Env{status: 200, body: mocked_body()}
+        _ -> %Tesla.Env{status: 404, body: "NotFound"}
+      end
     end)
   end
 
-  test "parses response body and create entities" do
-    captured_log = capture_log(fn -> HTMLDataExtractor.sync(@url) end)
+  describe "sync/1" do
+    test "given valid url, parses response body and create entities" do
+      captured_log = capture_log(fn -> HTMLDataExtractor.sync(@url) end)
 
-    topics = get_all_topics()
-    languages = get_all_languages()
-    tutorials = get_all_tutorials()
+      topics = get_all_topics()
+      languages = get_all_languages()
+      tutorials = get_all_tutorials()
 
-    assert topics |> Enum.count() == 4
-    assert languages |> Enum.count() == 5
-    assert tutorials |> Enum.count() == 6
+      assert topics |> Enum.count() == 4
+      assert languages |> Enum.count() == 5
+      assert tutorials |> Enum.count() == 6
 
-    assert_topic_contains_expected_tutorials("3D Renderer", 1)
-    assert_topic_contains_expected_tutorials("Augmented Reality", 1)
-    assert_topic_contains_expected_tutorials("Bot", 3)
-    assert_topic_contains_expected_tutorials("Docker", 1) # Go Container tutorial contains an error, so it won't be inserted
+      assert_topic_contains_expected_tutorials("3D Renderer", 1)
+      assert_topic_contains_expected_tutorials("Augmented Reality", 1)
+      assert_topic_contains_expected_tutorials("Bot", 3)
+      assert_topic_contains_expected_tutorials("Docker", 1) # Go Container tutorial contains an error, so it won't be inserted
 
-    assert captured_log =~ "Failed to extract topic from <li>\n[Git(#mocked-git)  </li>"
-    assert captured_log =~ "Failed to extract tutorial contents from <li><a href=\"https://www.mocked.com/go-docker\"><strong>Go</strong>: _Go Container</a></li"
+      assert captured_log =~ "Failed to extract topic from <li>\n[Git(#mocked-git)  </li>"
+      assert captured_log =~ "Failed to extract tutorial contents from <li><a href=\"https://www.mocked.com/go-docker\"><strong>Go</strong>: _Go Container</a></li"
+    end
+
+    test "returns error message for invalid url" do
+      captured_log = capture_log(fn -> HTMLDataExtractor.sync("https://invalid.url.com") end)
+
+      assert captured_log =~ "Error occurred while processing the response. Unable to extract data"
+    end
   end
 
   defp mocked_body do

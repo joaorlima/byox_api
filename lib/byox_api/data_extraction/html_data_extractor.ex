@@ -5,8 +5,17 @@ defmodule ByoxApi.DataExtraction.HTMLDataExtractor do
   require Logger
 
   def sync(url) do
-    {:ok, response} = Tesla.get(url)
+    url
+    |> Tesla.get()
+    |> handle_response()
+    |> process_response()
+  end
 
+  defp handle_response({:ok, %Tesla.Env{status: 404}}), do: {:error, :not_found}
+  defp handle_response({:ok, %Tesla.Env{} = response}), do: {:ok, response}
+
+  defp process_response({:error, :not_found}), do: log_error_message()
+  defp process_response({:ok, response}) do
     html = Earmark.as_html!(response.body)
 
     {:ok, document} = Floki.parse_document(html)
@@ -20,8 +29,10 @@ defmodule ByoxApi.DataExtraction.HTMLDataExtractor do
     data
     |> create_content_map()
     |> ContentMapper.extract()
+  end
 
-    :ok
+  defp log_error_message() do
+    Logger.error("Error occurred while processing the response. Unable to extract data")
   end
 
   defp extract_data_from_ul_tags(ul_tags) do
