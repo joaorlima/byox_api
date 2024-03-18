@@ -2,9 +2,12 @@ defmodule ByoxApi.Tutorials.FactoryTest do
   use ByoxApi.DataCase
 
   alias ByoxApi.Tutorials.Factory
+  alias ByoxApi.Factories.SchemaFactory
 
   describe "create/2" do
     test "returns tutorial for valid input" do
+      topic = SchemaFactory.insert(:topic)
+
       tutorial_data = {
         :ok,
         %{
@@ -15,8 +18,6 @@ defmodule ByoxApi.Tutorials.FactoryTest do
           ]
         }
       }
-
-      {:ok, topic} = create_topic("3D Renderer")
 
       assert {:ok, tutorial} = Factory.create(tutorial_data, {:ok, topic})
 
@@ -34,7 +35,6 @@ defmodule ByoxApi.Tutorials.FactoryTest do
     end
   end
 
-  defp create_topic(title), do: %{title: title} |> ByoxApi.create_topic()
   defp find_language_by_name(name), do: ByoxApi.get_language_by_name(name)
 
 end
