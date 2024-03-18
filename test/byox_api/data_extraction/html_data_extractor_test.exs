@@ -1,11 +1,11 @@
-defmodule ByoxApi.Service.MapperTest do
+defmodule ByoxApi.DataExtraction.HTMLDataExtractorTest do
   use ByoxApiWeb.ConnCase, async: true
 
   alias ByoxApi.Repo
   alias ByoxApi.Languages.Language
   alias ByoxApi.Topics.Topic
   alias ByoxApi.Tutorials.Tutorial
-  alias ByoxApi.Service.Mapper
+  alias ByoxApi.DataExtraction.HTMLDataExtractor
 
   import ExUnit.CaptureLog
   import Tesla.Mock
@@ -19,7 +19,7 @@ defmodule ByoxApi.Service.MapperTest do
   end
 
   test "parses response body and create entities" do
-    captured_log = capture_log(fn -> Mapper.sync(@url) end)
+    captured_log = capture_log(fn -> HTMLDataExtractor.sync(@url) end)
 
     topics = get_all_topics()
     languages = get_all_languages()

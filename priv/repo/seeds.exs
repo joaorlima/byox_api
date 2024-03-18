@@ -1,5 +1,5 @@
-alias ByoxApi.Service.Mapper
+alias  ByoxApi.DataExtraction.HTMLDataExtractor
 
 url = "https://raw.githubusercontent.com/codecrafters-io/build-your-own-x/master/README.md"
 
-Mapper.sync(url)
+HTMLDataExtractor.sync(url)
