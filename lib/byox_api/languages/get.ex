@@ -5,7 +5,7 @@ defmodule ByoxApi.Languages.Get do
   def get_by_name(name) do
     case Repo.get_by(Language, name: name) do
       nil -> {:error, :not_found}
-      language -> {:ok, Repo.preload(language, :tutorials)}
+      language -> {:ok, Repo.preload(language, tutorials: [:topic])}
     end
   end
 end

@@ -5,7 +5,7 @@ defmodule ByoxApiWeb.Schema.Types.Tutorial do
     field :id, non_null(:id)
     field :title, non_null(:string)
     field :url, non_null(:string)
-    field :topic_id, non_null(:id)
+    field :topic, non_null(:topic)
     field :language, non_null(:language)
   end
 end
