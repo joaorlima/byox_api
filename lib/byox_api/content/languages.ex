@@ -9,6 +9,7 @@ defmodule ByoxApi.Content.Languages do
     |> Repo.insert()
   end
 
+  @spec get_by_name(name :: String.t()) :: {:error, :not_found} | {:ok, Language.t()}
   def get_by_name(name) do
     case Repo.get_by(Language, name: name) do
       nil -> {:error, :not_found}
@@ -16,6 +17,7 @@ defmodule ByoxApi.Content.Languages do
     end
   end
 
+  @spec find_or_create(language_name :: String.t()) :: {:error, Ecto.Changeset.t()} | {:ok, Language.t()}
   def find_or_create(language_name) do
     case get_by_name(language_name) do
       {:error, :not_found} ->
@@ -24,5 +26,4 @@ defmodule ByoxApi.Content.Languages do
       {:ok, language} -> {:ok, language}
     end
   end
-
 end

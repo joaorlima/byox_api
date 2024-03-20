@@ -4,6 +4,12 @@ defmodule ByoxApi.Content.Topic do
 
   alias ByoxApi.Content.Tutorial
 
+  @type t :: %__MODULE__{
+    id: integer(),
+    title: String.t(),
+    tutorials: [Tutorial.t()]
+  }
+
   @required_params [:title]
 
   schema "topics" do

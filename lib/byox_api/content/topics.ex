@@ -2,6 +2,7 @@ defmodule ByoxApi.Content.Topics do
 
   alias ByoxApi.Repo
   alias ByoxApi.Content.Topic
+  alias ByoxApi.Content.Language
 
   import Ecto.Query
 
@@ -11,6 +12,7 @@ defmodule ByoxApi.Content.Topics do
     |> Repo.insert()
   end
 
+  @spec get_by_title(title :: String.t()) :: nil | {:ok, Language.t()}
   def get_by_title(title) do
     case Repo.get_by(Topic, title: title) do
       nil -> nil
@@ -18,6 +20,7 @@ defmodule ByoxApi.Content.Topics do
     end
   end
 
+  @spec find_similar_by_title(title :: String.t()) :: {:error, :not_found} | {:ok, [Topic.t()]}
   def find_similar_by_title(title) do
     topics = Repo.all(from(t in Topic, where: ilike(t.title, ^"%#{title}%")))
 

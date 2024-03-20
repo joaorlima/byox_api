@@ -52,6 +52,7 @@ defmodule ByoxApi.MixProject do
       {:hackney, "~> 1.17"},
       {:antl_utils_ecto, "~> 2.7"},
       {:ex_machina, "~> 2.7.0", only: :test},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
     ]
   end
 

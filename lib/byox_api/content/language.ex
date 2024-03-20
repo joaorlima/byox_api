@@ -4,6 +4,12 @@ defmodule ByoxApi.Content.Language do
 
   alias ByoxApi.Content.Tutorial
 
+  @type t :: %__MODULE__{
+    id: integer(),
+    name: String.t(),
+    tutorials: [Tutorial.t()]
+  }
+
   @required_params [:name]
 
   schema "languages" do
