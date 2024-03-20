@@ -3,7 +3,8 @@ defmodule ByoxApi.DataExtraction.ContentMapper do
   alias ByoxApi.Tutorials.Mapper, as: TutorialMapper
   alias ByoxApi.Tutorials.Factory, as: TutorialFactory
   alias ByoxApi.Topics.Mapper, as: TopicMapper
-  alias ByoxApi.Topics.Factory, as: TopicFactory
+
+  alias ByoxApi.Content.Topics
 
   def extract(data) do
     data
@@ -22,7 +23,7 @@ defmodule ByoxApi.DataExtraction.ContentMapper do
   defp extract_topic_data(topic_data) do
     topic_data
     |> TopicMapper.map()
-    |> TopicFactory.create()
+    |> Topics.from_topic_data()
   end
 
   defp extract_tutorials_data(tutorials_data, topic) do

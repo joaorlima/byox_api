@@ -3,6 +3,7 @@ defmodule ByoxApiWeb.TopicTest do
 
   alias ByoxApi.Content.Language
   alias ByoxApi.Content.Languages
+  alias ByoxApi.Content.Topics
   alias ByoxApi.Content.Tutorial
 
   import Ecto.Query
@@ -176,7 +177,7 @@ defmodule ByoxApiWeb.TopicTest do
   end
 
   defp create_language(name), do: %{name: name} |> Languages.create()
-  defp create_topic(title), do: %{title: title} |> ByoxApi.create_topic()
+  defp create_topic(title), do: %{title: title} |> Topics.create()
 
   defp create_tutorial(title, url, topic_id, language_id) do
     %{
