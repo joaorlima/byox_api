@@ -2,9 +2,9 @@ defmodule ByoxApi.DataExtraction.HTMLDataExtractorTest do
   use ByoxApiWeb.ConnCase, async: true
 
   alias ByoxApi.Repo
-  alias ByoxApi.Languages.Language
-  alias ByoxApi.Topics.Topic
-  alias ByoxApi.Tutorials.Tutorial
+  alias ByoxApi.Content.Language
+  alias ByoxApi.Content.Topic
+  alias ByoxApi.Content.Tutorial
   alias ByoxApi.DataExtraction.HTMLDataExtractor
 
   import ExUnit.CaptureLog

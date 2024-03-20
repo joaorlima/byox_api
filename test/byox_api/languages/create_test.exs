@@ -1,7 +1,7 @@
 defmodule ByoxApi.Languages.CreateTest do
   use ByoxApi.DataCase
 
-  alias ByoxApi.Languages.Language
+  alias ByoxApi.Content.Language
   alias ByoxApi.Languages.Create
   alias ByoxApi.Factories.SchemaFactory, as: Factory
 

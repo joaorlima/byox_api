@@ -1,6 +1,6 @@
 defmodule ByoxApi.Topics.Get do
   alias ByoxApi.Repo
-  alias ByoxApi.Topics.Topic
+  alias ByoxApi.Content.Topic
 
   import Ecto.Query
 

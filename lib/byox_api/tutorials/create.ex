@@ -1,6 +1,6 @@
 defmodule ByoxApi.Tutorials.Create do
   alias ByoxApi.Repo
-  alias ByoxApi.Tutorials.Tutorial
+  alias ByoxApi.Content.Tutorial
 
   def create(params) do
     params

@@ -1,6 +1,6 @@
 defmodule ByoxApi.Languages.Create do
   alias ByoxApi.Repo
-  alias ByoxApi.Languages.Language
+  alias ByoxApi.Content.Language
 
   def create(params) do
     params

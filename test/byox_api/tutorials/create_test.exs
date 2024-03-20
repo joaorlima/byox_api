@@ -1,7 +1,7 @@
 defmodule ByoxApi.Tutorials.CreateTest do
   use ByoxApi.DataCase
 
-  alias ByoxApi.Tutorials.Tutorial
+  alias ByoxApi.Content.Tutorial
   alias ByoxApi.Tutorials.Create
   alias ByoxApi.Factories.SchemaFactory, as: Factory
 

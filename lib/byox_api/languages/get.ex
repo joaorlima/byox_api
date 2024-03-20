@@ -1,6 +1,6 @@
 defmodule ByoxApi.Languages.Get do
   alias ByoxApi.Repo
-  alias ByoxApi.Languages.Language
+  alias ByoxApi.Content.Language
 
   def get_by_name(name) do
     case Repo.get_by(Language, name: name) do

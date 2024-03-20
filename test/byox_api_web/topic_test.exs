@@ -1,8 +1,8 @@
 defmodule ByoxApiWeb.TopicTest do
   use ByoxApiWeb.ConnCase, async: true
 
-  alias ByoxApi.Languages.Language
-  alias ByoxApi.Tutorials.Tutorial
+  alias ByoxApi.Content.Language
+  alias ByoxApi.Content.Tutorial
 
   import Ecto.Query
 

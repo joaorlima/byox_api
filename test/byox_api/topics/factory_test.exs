@@ -2,7 +2,7 @@ defmodule ByoxApi.Topics.FactoryTest do
   use ByoxApi.DataCase
 
   alias ByoxApi.Repo
-  alias ByoxApi.Topics.Topic
+  alias ByoxApi.Content.Topic
   alias ByoxApi.Topics.Factory
 
   describe "create/1" do

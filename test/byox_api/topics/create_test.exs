@@ -1,7 +1,7 @@
 defmodule ByoxApi.Topics.CreateTest do
   use ByoxApi.DataCase
 
-  alias ByoxApi.Topics.Topic
+  alias ByoxApi.Content.Topic
   alias ByoxApi.Topics.Create
   alias ByoxApi.Factories.SchemaFactory, as: Factory
 

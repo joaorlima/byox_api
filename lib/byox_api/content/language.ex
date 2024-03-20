@@ -1,8 +1,8 @@
-defmodule ByoxApi.Languages.Language do
+defmodule ByoxApi.Content.Language do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias ByoxApi.Tutorials.Tutorial
+  alias ByoxApi.Content.Tutorial
 
   @required_params [:name]
 

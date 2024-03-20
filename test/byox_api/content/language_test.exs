@@ -1,7 +1,7 @@
-defmodule ByoxApi.Languages.LanguageTest do
+defmodule ByoxApi.Content.LanguageTest do
   use ExUnit.Case
 
-  alias ByoxApi.Languages.Language
+  alias ByoxApi.Content.Language
 
   import AntlUtilsEcto.Changeset
 

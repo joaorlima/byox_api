@@ -1,6 +1,6 @@
 defmodule ByoxApi.Topics.Factory do
 
-  alias ByoxApi.Topics.Topic
+  alias ByoxApi.Content.Topic
 
   @spec create(params :: {:error, :invalid_topic_data} | {:ok, String.t()}) :: {:error, Ecto.Changeset.t()} | {:ok, Topic.t()}
   def create({:error, _}), do: {:error, :invalid_topic_data}

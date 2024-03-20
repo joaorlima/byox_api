@@ -3,7 +3,7 @@ defmodule ByoxApi.Languages.FactoryTest do
 
   alias ByoxApi.Repo
   alias ByoxApi.Languages.Factory
-  alias ByoxApi.Languages.Language
+  alias ByoxApi.Content.Language
   alias ByoxApi.Factories.SchemaFactory
 
   setup do

@@ -2,9 +2,9 @@ defmodule ByoxApi.Factories.SchemaFactory do
   use ExMachina.Ecto, repo: ByoxApi.Repo
 
   alias ByoxApi.Repo
-  alias ByoxApi.Languages.Language
-  alias ByoxApi.Topics.Topic
-  alias ByoxApi.Tutorials.Tutorial
+  alias ByoxApi.Content.Language
+  alias ByoxApi.Content.Topic
+  alias ByoxApi.Content.Tutorial
 
   def language_factory do
     %Language{

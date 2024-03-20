@@ -1,6 +1,6 @@
 defmodule ByoxApi.Topics.Create do
   alias ByoxApi.Repo
-  alias ByoxApi.Topics.Topic
+  alias ByoxApi.Content.Topic
 
   def create(params) do
     params

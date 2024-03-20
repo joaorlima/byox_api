@@ -1,7 +1,7 @@
-defmodule ByoxApi.Topics.TopicTest do
+defmodule ByoxApi.Content.TopicTest do
   use ExUnit.Case
 
-  alias ByoxApi.Topics.Topic
+  alias ByoxApi.Content.Topic
 
   import AntlUtilsEcto.Changeset
 

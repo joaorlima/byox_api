@@ -1,8 +1,8 @@
-defmodule ByoxApi.Topics.Topic do
+defmodule ByoxApi.Content.Topic do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias ByoxApi.Tutorials.Tutorial
+  alias ByoxApi.Content.Tutorial
 
   @required_params [:title]
 
