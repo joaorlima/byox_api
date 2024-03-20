@@ -1,7 +1,7 @@
-defmodule ByoxApi.Tutorials.MapperTest do
+defmodule ByoxApi.DataExtraction.TutorialParserTest do
   use ByoxApi.DataCase
 
-  alias ByoxApi.Tutorials.Mapper
+  alias ByoxApi.DataExtraction.TutorialParser
 
   import ExUnit.CaptureLog
 
@@ -17,21 +17,21 @@ defmodule ByoxApi.Tutorials.MapperTest do
     "<li><a href=\"https://www.mocked.com/php-bot\"><strong>PHP</strong>: <em>PHP Bot</em></a></li>",
   ]
 
-  describe "map/1" do
+  describe "parse_tutorial/1" do
     test "extract tutorial info given a valid tutorial tag" do
-      tutorials_mapped = Mapper.map(@mocked_valid_tutorials_tag)
+      tutorials_parsed = TutorialParser.parse_tutorial(@mocked_valid_tutorials_tag)
 
-      assert_tutorial_content_was_mapped(tutorials_mapped, "Rust Git", "https://www.mocked.com/rust-git", "Rust")
-      assert_tutorial_content_was_mapped(tutorials_mapped, "C++ Git", "https://www.mocked.com/cpp-git", "C++")
-      assert_tutorial_content_was_mapped(tutorials_mapped, "PHP Git", "https://www.mocked.com/php-git", "PHP")
+      assert_tutorial_content_was_parsed(tutorials_parsed, "Rust Git", "https://www.mocked.com/rust-git", "Rust")
+      assert_tutorial_content_was_parsed(tutorials_parsed, "C++ Git", "https://www.mocked.com/cpp-git", "C++")
+      assert_tutorial_content_was_parsed(tutorials_parsed, "PHP Git", "https://www.mocked.com/php-git", "PHP")
     end
 
     test "logs an error given a invalid tutorial tag" do
-      captured_log = capture_log(fn -> Mapper.map(@mocked_invalid_tutorials_tag) end)
+      captured_log = capture_log(fn -> TutorialParser.parse_tutorial(@mocked_invalid_tutorials_tag) end)
 
-      tutorials_mapped = Mapper.map(@mocked_invalid_tutorials_tag)
+      tutorials_parsed = TutorialParser.parse_tutorial(@mocked_invalid_tutorials_tag)
 
-      assert {:error, :invalid_tutorial_data} in tutorials_mapped
+      assert {:error, :invalid_tutorial_data} in tutorials_parsed
 
       assert captured_log =~ """
       Failed to extract tutorial contents from <li><a href="https://www.mocked.com/rust-bot"><strong>Rust</strong>: _Rust Bot</a></li>.
@@ -42,11 +42,11 @@ defmodule ByoxApi.Tutorials.MapperTest do
       [<strong>Elixir</strong>: <em>Elixir Bot</em>](<a href="https://www.mocked.com/ex-bot">https://www.mocked.com/ex-bot</a></li>.
       """
 
-      assert_tutorial_content_was_mapped(tutorials_mapped, "PHP Bot", "https://www.mocked.com/php-bot", "PHP")
+      assert_tutorial_content_was_parsed(tutorials_parsed, "PHP Bot", "https://www.mocked.com/php-bot", "PHP")
     end
   end
 
-  defp assert_tutorial_content_was_mapped(a, title, url, language) do
+  defp assert_tutorial_content_was_parsed(tutorials_parsed, title, url, language) do
     tutorial_data = [
       title: title,
       url: url,
@@ -60,7 +60,6 @@ defmodule ByoxApi.Tutorials.MapperTest do
       }
     }
 
-    assert tutorial_info in a
+    assert tutorial_info in tutorials_parsed
   end
-
 end

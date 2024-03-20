@@ -1,8 +1,8 @@
-defmodule ByoxApi.Topics.Mapper do
+defmodule ByoxApi.DataExtraction.TopicParser do
 
   require Logger
 
-  def map(topic_data) do
+  def parse_topic_data(topic_data) do
     topic_data
     |> extract_topic_info_from_tag()
   end
@@ -27,5 +27,4 @@ defmodule ByoxApi.Topics.Mapper do
     """
     |> Logger.error()
   end
-
 end

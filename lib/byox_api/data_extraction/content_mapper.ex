@@ -1,7 +1,7 @@
 defmodule ByoxApi.DataExtraction.ContentMapper do
 
-  alias ByoxApi.Tutorials.Mapper, as: TutorialMapper
-  alias ByoxApi.Topics.Mapper, as: TopicMapper
+  alias ByoxApi.DataExtraction.TutorialParser
+  alias ByoxApi.DataExtraction.TopicParser
 
   alias ByoxApi.Content.Topics
   alias ByoxApi.Content.Tutorials
@@ -22,13 +22,13 @@ defmodule ByoxApi.DataExtraction.ContentMapper do
 
   defp extract_topic_data(topic_data) do
     topic_data
-    |> TopicMapper.map()
+    |> TopicParser.parse_topic_data()
     |> Topics.from_topic_data()
   end
 
   defp extract_tutorials_data(tutorials_data, topic) do
     tutorials_data
-    |> TutorialMapper.map()
+    |> TutorialParser.parse_tutorial()
     |> Enum.map(&Tutorials.from_tutorial_data(&1, topic))
   end
 

@@ -1,13 +1,13 @@
-defmodule ByoxApi.Tutorials.Mapper do
+defmodule ByoxApi.DataExtraction.TutorialParser do
 
   require Logger
 
-  def map(tutorials_data) do
+  def parse_tutorial(tutorials_data) do
     tutorials_data
     |> Enum.map(&extract_tutorial_info_from_tag/1)
   end
 
-  def extract_tutorial_info_from_tag(tutorial_data) do
+  defp extract_tutorial_info_from_tag(tutorial_data) do
     case Regex.run(
       ~r{<a href="(?<url>[^"]+)"><strong>(?<language>[^<]+)</strong>: <em>(?<title>[^<]+)</em></a>},
       tutorial_data,
