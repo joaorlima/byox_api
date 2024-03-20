@@ -1,6 +1,8 @@
 defmodule ByoxApiWeb.LanguageTest do
   use ByoxApiWeb.ConnCase, async: true
 
+  alias ByoxApi.Content.Languages
+
   describe "queries" do
     test "given existing language. should return the language", %{conn: conn} do
       {:ok, _language} = create_language("Elixir")
@@ -68,7 +70,7 @@ defmodule ByoxApiWeb.LanguageTest do
     end
   end
 
-  defp create_language(name), do: %{name: name} |> ByoxApi.create_language()
+  defp create_language(name), do: %{name: name} |> Languages.create()
 
   defp assert_response_contains_error_message(response, expected_message) do
     assert %{"errors" => [%{"message" => message}]} = response

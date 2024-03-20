@@ -1,14 +1,14 @@
 defmodule ByoxApi do
-  alias ByoxApi.Languages
+
+  alias ByoxApi.Content.Languages
   alias ByoxApi.Tutorials
   alias ByoxApi.Topics
 
-  defdelegate create_language(params), to: Languages.Create, as: :create
   defdelegate create_topic(params), to: Topics.Create, as: :create
   defdelegate create_tutorial(params), to: Tutorials.Create, as: :create
 
   @spec get_language_by_name(name :: String) :: {:ok, Language.t()} | {:error, :not_found}
-  defdelegate get_language_by_name(name), to: Languages.Get, as: :get_by_name
+  defdelegate get_language_by_name(name), to: Languages, as: :get_by_name
 
   @spec get_topics_by_title(title :: String) :: {:ok, [Topic.t()]} | {:error, :not_found}
   defdelegate get_topics_by_title(title), to: Topics.Get, as: :find_similar_by_title
