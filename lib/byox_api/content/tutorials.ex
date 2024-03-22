@@ -19,9 +19,13 @@ defmodule ByoxApi.Content.Tutorials do
   def from_tutorial_data({:error, :invalid_tutorial_data}, _topic_data), do: {:error, :invalid_tutorial}
 
   @spec from_tutorial_data({:ok, map()}, {:ok, Topic.t()}) :: {:error, Ecto.Changeset.t()} | {:ok, Topic.t()}
-  def from_tutorial_data({:ok, %{tutorial_data: [title: title, url: url, language: language]}}, {:ok, topic}) do
-    {:ok, language} = Languages.find_or_create(language)
+  def from_tutorial_data({:ok, %{tutorial_data: [title: title, url: url, language: languages_names]}}, {:ok, topic}) do
+    languages =
+      languages_names
+      |> Languages.parse_and_create_languages()
 
+    languages
+    |> Enum.map(fn {:ok, language} ->
     %{
       title: title,
       url: url,
@@ -29,6 +33,7 @@ defmodule ByoxApi.Content.Tutorials do
       language_id: language.id
     }
     |> create()
+    end)
   end
 
 end

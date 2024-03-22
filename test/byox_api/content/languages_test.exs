@@ -41,15 +41,19 @@ defmodule ByoxApi.Content.LanguagesTest do
     end
   end
 
-  describe "find_or_create/1" do
-    test "creates a new language if it doesn't exists" do
+  describe "parse_and_create_languages/1" do
+    test "split languages and creates one new language for each split record" do
       assert get_all_languages() |> Enum.count == 0
 
-      {:ok, language} = Languages.find_or_create("Elixir")
-      {:ok, language_from_db} = Languages.get_by_name("Elixir")
+      Languages.parse_and_create_languages("Java / JavaScript")
 
-      assert language.id == language_from_db.id
-      assert language.name == language_from_db.name
+      assert get_all_languages() |> Enum.count == 2
+
+      {:ok, language_1_from_db} = Languages.get_by_name("Java")
+      {:ok, language_2_from_db} = Languages.get_by_name("JavaScript")
+
+      assert language_1_from_db != nil
+      assert language_2_from_db != nil
     end
 
     test "does not create a new language if it already exists" do
@@ -57,7 +61,7 @@ defmodule ByoxApi.Content.LanguagesTest do
 
       assert get_all_languages() |> Enum.count == 1
 
-      {:ok, language} = Languages.find_or_create("Elixir")
+      [{:ok, language} | _] = Languages.parse_and_create_languages("Elixir")
 
       assert get_all_languages() |> Enum.count == 1
       assert created_language.id == language.id

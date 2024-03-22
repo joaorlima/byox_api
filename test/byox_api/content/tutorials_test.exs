@@ -50,9 +50,9 @@ defmodule ByoxApi.Content.TutorialsTest do
         }
       }
 
-      assert {:ok, tutorial} = Tutorials.from_tutorial_data(tutorial_data, {:ok, topic})
+      assert [{:ok, tutorial}] = Tutorials.from_tutorial_data(tutorial_data, {:ok, topic})
 
-      {:ok, language} = Languages.get_by_name("C++")
+     {:ok, language} = Languages.get_by_name("C++")
 
       assert tutorial.title == "3D Renderer Tutorial"
       assert tutorial.url == "https://www.mocked.com/3d-rend"
