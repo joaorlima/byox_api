@@ -6,6 +6,7 @@ defmodule ByoxApi.Content.Topics do
 
   import Ecto.Query
 
+  @spec create(params :: map()) :: {:ok, Topic.t()} | {:error, Ecto.Changeset.t()}
   def create(params) do
     params
     |> Topic.changeset()

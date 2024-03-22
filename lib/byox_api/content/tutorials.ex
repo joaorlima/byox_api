@@ -5,6 +5,7 @@ defmodule ByoxApi.Content.Tutorials do
   alias ByoxApi.Content.Topic
   alias ByoxApi.Content.Languages
 
+  @spec create(params :: map()) :: {:ok, Tutorial.t()} | {:error, Ecto.Changeset.t()}
   def create(params) do
     params
     |> Tutorial.changeset()

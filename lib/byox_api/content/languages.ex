@@ -3,6 +3,7 @@ defmodule ByoxApi.Content.Languages do
   alias ByoxApi.Repo
   alias ByoxApi.Content.Language
 
+  @spec create(params :: map()) :: {:ok, Language.t()} | {:error, Ecto.Changeset.t()}
   def create(params) do
     params
     |> Language.changeset()
