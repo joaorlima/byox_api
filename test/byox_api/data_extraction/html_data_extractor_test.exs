@@ -30,10 +30,10 @@ defmodule ByoxApi.DataExtraction.HTMLDataExtractorTest do
       tutorials = get_all_tutorials()
 
       assert topics |> Enum.count() == 4
-      assert languages |> Enum.count() == 5
-      assert tutorials |> Enum.count() == 6
+      assert languages |> Enum.count() == 7
+      assert tutorials |> Enum.count() == 8
 
-      assert_topic_contains_expected_tutorials("3D Renderer", 1)
+      assert_topic_contains_expected_tutorials("3D Renderer", 3)
       assert_topic_contains_expected_tutorials("Augmented Reality", 1)
       assert_topic_contains_expected_tutorials("Bot", 3)
       assert_topic_contains_expected_tutorials("Docker", 1) # Go Container tutorial contains an error, so it won't be inserted
@@ -66,6 +66,7 @@ defmodule ByoxApi.DataExtraction.HTMLDataExtractorTest do
     #### Mocked `3D Renderer`
 
     * [**C++**: _3D Renderer Tutorial_](https://www.mocked.com/3d-rend)
+    * [**Java / JavaScript**: _3D Engine_](https://www.mocked.com/3d-engine)
 
     #### Mocked `Augmented Reality`
 
